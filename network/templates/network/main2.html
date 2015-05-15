@@ -1,0 +1,143 @@
+{% extends 'network/base2.html' %}
+{% load staticfiles %}
+{% load bootstrap %}
+{% load thumbnail %}
+{% load humanize %}
+
+{% block body_block %}
+
+    <div class="main">
+        {% if user.is_lecturer %}
+            <div class="feed-create">
+                <form id="feed_form" method="post" action="/network/submit/" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <div class="dropdown1">
+                        <select class="form-control" name="course-list" id="course-list">
+                            <option value="Z">Course</option>
+                            {% for c in course_list %}
+                                <option value="{{ c.code }}">{{ c.code }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="dropdown2">
+                        <select class="form-control" name="sections-list" id="sections-list" disabled="true">
+                            <option>Section</option>
+                        </select>
+                    </div>
+                    <div class="text-area">
+                        {{feed_form|bootstrap }}
+                    </div>
+                    <div class="modal-footer">
+                        <div id="file-upload-cont"style="float: left">
+                            <div class="fileUpload btn btn-default">
+                                <span>Attach File</span>
+                                <input type="file" name="attachment" id="attachment" class="upload"/>
+                            </div>
+                        </div>
+                        <div style="float: right">
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+        <div id="feed-list">
+        {% for f in feed %}
+            <div class="feed-object {{ f.section.course.code }}">
+                <div class="top-part">
+                    <div class="avatar">
+                        <img src="{{ f.creator.user.profile_picture|thumbnail_url:'avatar-small' }}" alt="" />
+                    </div>
+                    <div class="inline-creator">
+                        <li><a style="color: #445566;" href="/network/user/{{f.creator.user.user_id}}/"><strong>{{f.creator}}</strong></a></li>
+                    </div>
+                    <div class="inline-date">
+                        <span style="color:#8899A6;font-weight: 500">  {{f.creation_date|naturaltime}}</span>
+                    </div>
+                    <div class="inline-tag">
+                        <span class="label label-default">{{f.section.course}}</span>
+                    </div>
+                </div>
+                <div class="content-area">
+                    <span style="font-size: 18px"><p>{{f.content}}</p></span>
+                </div>
+                {% if f.attachment%}
+                    <div class="file-area">
+                        <li><a href="{{ f.attachment.url }}"><span style="color: #0076a3">{{f.filename}}</span></a></li>
+                    </div>
+                {% endif %}
+                <li class="comment-button" id="com-open">
+                    <span style="font-size: 13px;font-size: 14px;"> Comments</span>
+                </li>
+                <div class="comments"style="display: none;">
+                    <div class="new-comment">
+                        <div class="new-com-avatar">
+                            <img src="{{ user.profile_picture|thumbnail_url:'avatar-xs' }}" alt="" />
+                        </div>
+                        <form id="comment_form" method="post" action="/network/feed/{{ f.feed_id }}/addcomment/" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="comment-text-area">
+                                {{comment_form}}
+                            </div>
+                            <div class="com-submit" id="com-submit">
+                                <button type="submit" class="btn btn-primary btn-sm" id="com-btn"> Comment</button>
+                        </div>
+                        </form>
+
+                    </div>
+                    <div class="comment-list">
+                        {% for c in f.comments.all %}
+                            <div class="comment">
+                                <div class="comment-avatar">
+                                    <img src="{{ c.creator.profile_picture|thumbnail_url:'avatar-xs' }}" alt="" />
+                                </div>
+                                <div class="comment-creator">
+                                    <li><a href="/network/user/{{c.creator.user_id}}/">
+                                        <strong>{% if c.creator.is_lecturer %}
+                                                    {{c.creator.lecturer}}
+                                                {% else %}
+                                                    {{c.creator.student}}
+                                                {% endif %}
+                                        </strong></a></li>
+                                </div>
+                                <div class="comment-date">
+                                    <span style="color:#8899A6;font-weight: 200">  {{c.creation_date|naturaltime}}</span>
+                                </div>
+                                <div class="comment-content">
+                                    <p>{{c.content}}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+        </div>
+        <div>
+
+        </div>
+    </div>
+    <div id="sidebar">
+        <div id="side-nav">
+            <div id="side-header">
+                <span style="font-size: 11px;font-weight: bold;line-height: 15px;color: #666666">COURSE LIST</span>
+            <hr style="margin-top: 10px; margin-bottom: 10px; width: 100px;margin-left: 0px">
+            </div>
+            <div id="course-list-cont">
+                <ul>
+                    <div class="course-list-obj" id="all">
+                        <li>All</li>
+                    </div>
+                    {% for c in course_list %}
+                    <div class="course-list-obj" id={{ c.code }}>
+                        <li>{{ c.code }}</li>
+                    </div>
+                    {% endfor %}
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

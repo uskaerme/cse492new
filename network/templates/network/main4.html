@@ -1,0 +1,115 @@
+{% extends 'network/base4.html' %}
+{% load staticfiles %}
+{% load bootstrap %}
+{% load thumbnail %}
+{% load humanize %}
+
+{% block body_block %}
+
+    <div class="main" style="padding: 5px">
+        {% for f in feed %}
+            <div class="feedobj {{ f.section.course.code }}">
+                <div class="top-part">
+                    <div class="avatar">
+                        <img src="{{ f.creator.user.profile_picture|thumbnail_url:'avatar-small' }}" alt="" />
+                    </div>
+                    <div class="inline-creator">
+
+                        <li><a style="color: #292f33;" href="/network/user/{{f.creator.user.user_id}}/"><strong>{{f.creator}}</strong></a></li>
+                    </div>
+                    <div class="inline-date">
+                         {{f.creation_date|naturaltime}}
+                    </div>
+                    <div class="inline-tag">
+                        <span class="label" style="color: #808393">{{f.section.course}}</span>
+                    </div>
+                </div>
+                 <div class="content-area">
+                    <p style="font-size: 13px;line-height: 16px;color: #292f33;">{{f.content}}</p>
+                </div>
+                {% if f.attachment%}
+                    <div class="file-area">
+                        <li><a href="{{ f.attachment.url }}"><span style="color: #0076a3;font-size: 13px;">{{f.filename}}</span></a></li>
+                    </div>
+                {% endif %}
+
+                <li class="comment-button" id="com-open">
+                    <span style="font-size: 13px;color: #8899a6;">Yorumlar</span>
+                </li>
+
+                <div class="comments"style="display: none;">
+                    <div class="new-comment">
+                        <div class="new-com-avatar">
+                            <img src="{{ user.profile_picture|thumbnail_url:'avatar-xs' }}" alt="" />
+                        </div>
+                        <form id="comment_form" method="post" action="/network/feed/{{ f.feed_id }}/addcomment/" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="comment-text-area">
+                                {{comment_form}}
+                            </div>
+                            <div class="com-submit" id="com-submit">
+                                <button type="submit" id="com-btn"> Comment</button>
+                        </div>
+                        </form>
+
+                    </div>
+                    <!--
+                    <div class="comment-list">
+                        {% for c in f.comments.all %}
+                            <div class="comment">
+                                <div class="comment-avatar">
+                                    <img src="{{ c.creator.profile_picture|thumbnail_url:'avatar-xs' }}" alt="" />
+                                </div>
+                                <div class="comment-creator">
+                                    <li><a href="/network/user/{{c.creator.user_id}}/">
+                                        <strong>{% if c.creator.is_lecturer %}
+                                                    {{c.creator.lecturer}}
+                                                {% else %}
+                                                    {{c.creator.student}}
+                                                {% endif %}
+                                        </strong></a></li>
+                                </div>
+                                <div class="comment-date">
+                                    <span style="color:#8899A6;font-weight: 200">  {{c.creation_date|naturaltime}}</span>
+                                </div>
+                                <div class="comment-content">
+                                    <p>{{c.content}}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>-->
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="feedobj">
+            <p style="font-size: 13px;line-height: 18px;color: #555555;">Holley, who tells Mashable that piece was meant to be light-hearted, bases his observations on personal experience and anecdote:
+
+"...over the last decade, I have inhabited both types of male physiques — the kind sporting six-pack abs and, more recently, the kind that looks like it should be pushing a stroller and Googling high-blood pressure medications. And yet, the latter physique has always proved more successful for me with the opposite sex. Much more."</p>
+        </div>
+
+    </div>
+    <div id="leftbar">
+        <div id="course-list-cont">
+            <div id="side-header">
+                <span style="font-size: 11px;font-weight: bold;line-height: 15px;color: #666666">FILTRELE</span>
+            </div>
+                <ul style="list-style-type: none;">
+                    <div class="course-list-obj" id="all">
+                        <li>Tümü</li>
+                    </div>
+                    <div class="course-list-obj" id={{ c.code }}>
+                        <li>CSE348</li>
+                    </div>
+                    <div class="course-list-obj" id={{ c.code }}>
+                        <li>CSE513</li>
+                    </div>
+                </ul>
+            </div>
+    </div>
+    <div id="rightbar">
+        <div class="upcoming">
+
+        </div>
+    </div>
+{% endblock %}

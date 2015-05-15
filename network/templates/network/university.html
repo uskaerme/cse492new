@@ -1,0 +1,79 @@
+{% extends 'network/base2.html' %}
+{% load staticfiles %}
+{% load bootstrap %}
+{% load thumbnail %}
+
+{% block body_block %}
+
+    <div id="user-basic-info">
+        <img src="{{p_pic}}" alt="" />
+        </br>
+        <div id="user-name">
+            {{ university.name }} University
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <div id="user-university">
+            <span style="color: #7b8084;">{{ university.location }}</span>
+        </div>
+        <a href={{ university.website }}><span style="color: #4183c4;line-height: 43px;">{{ university.website }}</span></a>
+        <p>Established: {{ university.established }}<p/>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+
+        <div id="user-count">
+            <div id="stu-count">
+                <span style="font-size:27px;line-height: 24px;color:#4183c4;font-weight: bold;">{{ student_count }}</span>
+                <br/>
+                <span style="font-size:14px;line-height: 20px;color:#777777;">Students</span>
+            </div>
+
+            <div id="cor-count">
+                <span style="font-size:27px;line-height: 24px;color:#4183c4;font-weight: bold;">{{ faculty_count }}</span>
+                <br/>
+                <span style="font-size:14px;line-height: 20px;color:#777777;">Faculties</span>
+            </div>
+        </div>
+
+
+    </div>
+    <div id="user-more-info">
+        <div class="academic-cont">
+            <div class="academic-top">
+                <div class="more-info-header">
+                    General Info
+                </div>
+                </div>
+                <div class="pub-obj">
+                    <span style="font-size: 15px;line-height: 23px;color: #555555;"><p>{{ university.general_info }}</p></span>
+                </div>
+
+        </div>
+        <div class="teaching-cont">
+            <div class="teaching-top">
+                <div class="more-info-header">
+                    Contact Info
+                </div>
+            </div>
+
+            <div class="teach-obj">
+                <span style="font-size: 15px;line-height: 23px;color: #555555;"><p>{{ university.contact_info }}</p></span>
+            </div>
+
+        </div>
+        <div class="pub-cont">
+            <div class="teaching-top">
+                <div class="more-info-header">
+                    Faculties
+                </div>
+            </div>
+            <div class="more-info-btn">
+                    {% for f in faculties %}
+                        <div class="faculty-obj">
+                            {{ f.name }}
+                            {{ f.website }}
+                            {{ f.info }}
+                        </div>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'network/base2.html' %}
+{% load staticfiles %}
+{% load bootstrap %}
+{% load thumbnail %}
+
+{% block body_block %}
+
+    <div id="user-basic-info">
+
+        <div id="user-name">
+            CSE348 Section 1
+        </div>
+        <div id="user-academic-rank">
+            Sayısal Sistemlerin Bilgisayar Destekli Tasarımı
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <div id="user-university">
+            <span style="color: #cccccc;"><i class="fa fa-map-marker"></i></span> Yeditepe / Computer Engineering
+        </div>
+        <br>
+        <div id="user-university">
+            <span style="color: #cccccc;"><i class="fa fa-map-marker"></i></span> Prerequisites: CSE344
+        </div>
+
+
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+
+        <div id="user-count">
+            <div id="stu-count">
+                <span style="font-size:27px;line-height: 24px;color:#4183c4;font-weight: bold;">3</span>
+                <br/>
+                <span style="font-size:14px;line-height: 20px;color:#777777;">Students</span>
+            </div>
+        <div id="cor-count">
+                <span style="font-size:27px;line-height: 24px;color:#4183c4;font-weight: bold;">0.0</span>
+                <br/>
+                <span style="font-size:14px;line-height: 20px;color:#777777;">Average</span>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div id="user-more-info">
+        <div class="academic-cont">
+            <div class="academic-top">
+                <div class="more-info-header">
+                    Feed
+                </div>
+                <div class="more-info-btn">
+
+                </div>
+                <div class="pub-obj">
+                    <span style="font-size: 15px;line-height: 23px;color: #555555;"><p>
+                        Faculty of Engineering offers four-year programs in the fields of Biomedical Engineering, Chemical Engineering, Civil Engineering, Computer Engineering, Electrical and Electronics Engineering, Food Engineering, Genetics and Bioengineering, Industrial and Systems Engineering and Mechanical Engineering.
+Non-Turkish nationals are encouraged to apply as a special student (non-degree) or as a regular student (through a central examination) or as an exchange student (through inter university agreements). University on campus housing facilities are available.
+In the first two years of this undergraduate education, courses in basic sciences and engineering sciences are taken, whereas in the latter two years emphasis is on specialization courses. The specialization courses consist of prescribed departmental and non-departmental courses as well as complementary elective courses. These elective courses, subject to departmental approval, are chosen to complement the students' education according to his/her interests.
+                    </p></span>
+                </div>
+            </div>
+        </div>
+        <div class="teaching-cont">
+            <div class="teaching-top">
+                <div class="more-info-header">
+                    Coursework
+                </div>
+                <div class="more-info-btn">
+
+                </div>
+                {% for t in teaching %}
+                    <div class="teach-obj">
+                        <span style="font-size:16px;font-weight: bold;line-height: 21px;color:#445566;">{{ t.code }} </span> <span style="font-size:14px;line-height: 15px;color:#445566;">{{ t.description }}</span>
+                        <br/>
+                        <span style="font-size:14px;line-height: 15px;color:#777777;">{{ t.semester }}</span>
+                        <br/>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="pub-cont">
+            <div class="pub-top">
+                <div class="more-info-header">
+                    Students
+                </div>
+                <div class="more-info-btn">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'network/base.html' %}
+
+{% load bootstrap %}
+
+{% block title %}Student account{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+        <form id="form" method="post" action="/network/register/student/" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{user_form|bootstrap}}
+            {{student_form|bootstrap}}
+            <div class="form-group">
+                <button type="submit" class="btn btn-sample btn-sm ">Submit</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

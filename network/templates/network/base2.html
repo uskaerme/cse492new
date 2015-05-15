@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head lang="en">
+    <!--
+    <title>New Layout</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'network/style2.css' %}" />
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'network/main.js' %}"></script>
+
+    {{ form.media }}
+    -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'network/style2.css' %}" />
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'network/main.js' %}"></script>
+    {{ form.media }}
+</head>
+<body>
+<div id="main-cont">
+    <div id="navbar">
+        {% if user.is_authenticated %}
+            <div id="top-nav-cont">
+                <div class="top-nav-opt" id="f-tab">
+                    <a href="/network/home/"><span style="color: #666666;line-height: 43px;">Feed</span></a>
+                </div>
+                <div class="top-nav-opt" id="c-tab">
+                     <a href="/network/test/"><span style="color: #666666;line-height: 43px;">Coursework</span></a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    {% block body_block %}
+
+    {% endblock %}
+</div>
+</body>
+
+</html>

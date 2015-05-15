@@ -1,0 +1,76 @@
+{% extends 'network/base2.html' %}
+{% load staticfiles %}
+{% load bootstrap %}
+{% load thumbnail %}
+
+{% block body_block %}
+
+    <div id="user-basic-info">
+
+        <div id="user-name">
+            {{ Faculty.name }} Faculty
+        </div>
+        <div id="user-academic-rank">
+            {{ faculty.university }} University
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <div id="user-university">
+            <span style="color: #cccccc;"><i class="fa fa-map-marker"></i></span> {{ faculty.location}}
+        </div>
+        <a href={{ faculty.website }}><span style="color: #4183c4;line-height: 43px;">{{ faculty.website }}</span></a>
+
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+
+        <div id="user-count">
+            <div id="stu-count">
+                <span style="font-size:27px;line-height: 24px;color:#4183c4;font-weight: bold;"> {{ student_count }}</span>
+                <br/>
+                <span style="font-size:14px;line-height: 20px;color:#777777;">Students</span>
+            </div>
+
+            <div id="cor-count">
+                <span style="font-size:27px;line-height: 24px;color:#4183c4;font-weight: bold;">{{ department_count }}</span>
+                <br/>
+                <span style="font-size:14px;line-height: 20px;color:#777777;">Departments</span>
+            </div>
+        </div>
+
+
+    </div>
+    <div id="user-more-info">
+        <div class="academic-cont">
+            <div class="academic-top">
+                <div class="more-info-header">
+                    General Info
+                </div>
+                <div class="more-info-btn">
+
+                </div>
+                <div class="pub-obj">
+                    <span style="font-size: 15px;line-height: 23px;color: #555555;"><p>
+                       {{ faculty.info}}
+                    </p></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="pub-cont">
+            <div class="pub-top">
+                <div class="more-info-header">
+                    Departments
+                </div>
+                <div class="more-info-btn">
+
+                </div>
+                <div class="more-info-btn">
+                    {% for d in departments %}
+                        <div class="faculty-obj">
+                            {{ d.name }}
+                        </div>
+                    {% endfor %}
+            </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

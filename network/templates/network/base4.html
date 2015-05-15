@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head lang="en">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'network/style4.css' %}" />
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'network/main.js' %}"></script>
+</head>
+<body>
+    <div id="navbar">
+          <form class="search-container">
+              <input type="text" id="search-bar" placeholder="What can I help you with today?">
+            <a href="#"><i class="fa fa-search"></i></a>
+          </form>
+    </div>
+    <div id="main-cont">
+
+        {% block body_block %}
+
+        {% endblock %}
+    </div>
+</body>
+
+</html>

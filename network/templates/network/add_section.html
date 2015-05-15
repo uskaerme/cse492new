@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+{% if user.is_authenticated %}
+            {% if user.is_lecturer %}
+                <form id="form" method="post" action="/network/university/{{ u_slug }}/course/{{ c_id }}/addsection/" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+                    {{form.as_p }}
+                    <input type="submit" value="Register" />
+                 </form>
+                {% else %}
+                    <h1>You do not have permission to add sections</h1>
+            {% endif %}
+            {% else %}
+                    <h1>You are not logged in</h1>
+        {% endif %}
+</body>
+</html>

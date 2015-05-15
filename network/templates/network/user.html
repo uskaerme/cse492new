@@ -1,0 +1,141 @@
+{% extends 'network/base2.html' %}
+{% load staticfiles %}
+{% load bootstrap %}
+{% load thumbnail %}
+
+{% block body_block %}
+    <div id="user-basic-info">
+        <img src="{{p_pic}}" alt="" />
+        </br>
+        <div id="user-name">
+            {{ lecturer.name }} {{ lecturer.surname }}
+        </div>
+        <div id="user-academic-rank">
+            {{ lecturer.academic_rank }}
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <div id="user-university">
+            <div>
+                 <a href="/network/university/{{ lecturer.department.faculty.university.university_slug }}"><span style="color: #7b8084;">{{ lecturer.department.faculty.university }}</span></a> / {{ lecturer.department}}
+            </div>
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <div id="user-count">
+            <div id="stu-count">
+                <span style="font-size:27px;line-height: 24px;color:#4183c4;font-weight: bold;">{{ s_no }}</span>
+                <br/>
+                <span style="font-size:14px;line-height: 20px;color:#777777;">Students</span>
+            </div>
+
+            <div id="cor-count">
+                <span style="font-size:27px;line-height: 24px;color:#4183c4;font-weight: bold;">{{ c_no }}</span>
+                <br/>
+                <span style="font-size:14px;line-height: 20px;color:#777777;">Courses</span>
+            </div>
+        </div>
+
+
+    </div>
+    <div id="user-more-info">
+        <div class="academic-cont">
+            <div class="academic-top">
+                <div class="more-info-header">
+                    Academic Background
+                </div>
+                <div class="more-info-btn">
+                    <a href="#" data-toggle="modal" data-target="#basicModal"><span style="font-size: 11px;font-weight: bold;line-height: 15px;color: #666666">ADD</span></a>
+                </div>
+            </div>
+                {% for a in academic %}
+                    <div class="academic-obj">
+                        <span style="font-size:16px;font-weight: bold;line-height: 21px;color:#445566;">{{ a.degree }}</span><span style="font-size:14px;line-height: 15px;color:#445566;"> {{ a.institution }}</span><span style="font-size:14px;line-height: 21px;color:#7b8084;"> {{ a.year }}</span><br>
+                        {{ a.field }}
+                    </div>
+                {% endfor %}
+
+        </div>
+        <div class="teaching-cont">
+
+            <div class="teaching-top">
+                <div class="more-info-header">
+                    Teaching
+                </div>
+            </div>
+                {% for t in teaching %}
+                    <div class="teach-obj">
+                        <span style="font-size:16px;font-weight: bold;line-height: 21px;color:#445566;">{{ t.code }} </span> <span style="font-size:14px;line-height: 15px;color:#445566;">{{ t.description }}</span>
+                        <br/>
+                        <span style="font-size:14px;line-height: 15px;color:#777777;">{{ t.semester }}</span>
+                        <br/>
+                    </div>
+                {% endfor %}
+
+        </div>
+        <div class="pub-cont">
+            <div class="academic-top">
+                <div class="more-info-header">
+                    Publications
+                </div>
+                <div class="more-info-btn">
+                    <span style="font-size: 11px;font-weight: bold;line-height: 15px;color: #666666">ADD</span>
+                </div>
+            </div>
+
+
+                {% for p in publication %}
+                <div class="pub-obj">
+                    <span style="font-size:15px;font-weight: bold;line-height: 21px;color:#445566;">{{ p.title }}</span><span style="font-size:14px;line-height: 21px;color:#7b8084;"> ({{ p.year }})</span>
+                    <br/>
+                    <span style="font-size:14px;line-height: 15px;color:#333333;">{{ p.authors }}</span><br/>
+                    <span style="font-size:12px;line-height: 12px;color:#333333;"> {{ p.reference }}</span>
+                </div>
+                {% endfor %}
+
+
+        <div class="pro-cont">
+            <div class="academic-top">
+                <div class="more-info-header">
+                    Professional Experience
+                </div>
+                <div class="more-info-btn">
+                    <span style="font-size: 11px;font-weight: bold;line-height: 15px;color: #666666">ADD</span>
+                </div>
+            </div>
+
+            {% for p in pro %}
+                <div class="pro-obj">
+                    <span style="font-size:15px;font-weight: bold;line-height: 21px;color:#445566;">{{ p.company }}</span><span style="font-size:14px;line-height: 21px;color:#7b8084;"> ({{ p.start }})</span>-<span style="font-size:14px;line-height: 21px;color:#7b8084;"> ({{ p.end }})</span>
+                    <br/>
+                    <span style="font-size:14px;line-height: 15px;color:#333333;">{{ p.position }}</span><br/>
+                    <span style="font-size:12px;line-height: 12px;color:#333333;"> {{ p.description }}</span>
+                </div>
+                {% endfor %}
+        </div>
+    </div>
+
+    <div id="coursework-create">
+            <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Create new coursework</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="courseworkform" method="post" action="/network/user/{{ user_id }}/newacademic/" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ academicform|bootstrap }}
+                                <div class="modal-footer" >
+                                    <div style="float: right">
+                                        <button type="submit" class="btn btn-primary">Create</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

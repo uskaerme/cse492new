@@ -1,0 +1,150 @@
+{% extends 'network/base2.html' %}
+{% load staticfiles %}
+{% load bootstrap %}
+{% load thumbnail %}
+{% load humanize %}
+
+{% block body_block %}
+    <div class="main">
+        {% if user.is_lecturer %}
+        <div id="coursework-create">
+            <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#basicModal"><i class="fa fa-plus"> New</i></a>
+            <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Create new coursework</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="courseworkform" method="post" action="/network/addcoursework/" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div id="dropdown-cont">
+                                    <div class="dropdown1">
+                                        <select class="form-control" name="course-list" id="course-list">
+                                            <option value="Z">Course</option>
+                                            {% for c in course_list %}
+                                                <option value="{{ c.code }}">{{ c.code }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="dropdown2">
+                                        <select class="form-control" name="sections-list" id="sections-list" disabled="true">
+                                            <option>Section</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    {{ form|bootstrap }}
+                                </div>
+                                <div class="modal-footer" >
+                                    <div id="file-upload-cont"style="float: left">
+                                        <div class="fileUpload btn btn-default">
+                                            <span>Attach File</span>
+                                            <input type="file" name="attachment" id="attachment" class="upload"/>
+                                        </div>
+                                    </div>
+                                    <div style="float: right">
+                                        <button type="submit" class="btn btn-primary">Create</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="coursework-list">
+        {% for cw in coursework %}
+            <div class="cw-object">
+                <div class="cw-top-part">
+                    <div class="title-desc">
+                        <span style="font-size:16px;line-height: 21px;color:#445566; font-weight: bold">{{cw.section.course.code}} {{ cw.title }}</span>
+                    </div>
+                    <div class="time-rem">
+                        <span style="font-size:14px;line-height: 21px;color:#445566;">{{ cw.remaining }}</span>
+                    </div>
+                </div>
+                <div>
+                    <span style="font-size:14px;line-height: 21px;color:#7b8084;">{{ cw.description }}</span>
+                </div>
+                <div>
+                    <span style="font-size:14px;line-height: 21px;color:#445566;">{{ cw.submission_type }} submission</span>
+                </div>
+                {% if cw.attachment%}
+                    <div class="file-area">
+                        <li><a href="{{ cw.attachment.url }}"><span style="color: #0076a3">{{cw.filename}}</span></a></li>
+                    </div>
+                {% endif %}
+                    <li class="comment-button" id="com-open">
+                    <span style="font-size: 13px"> Comments</span>
+                </li>
+                <div class="comments"style="display: none;">
+                    <div class="new-comment">
+                        <div class="new-com-avatar">
+                            <img src="{{ user.profile_picture|thumbnail_url:'avatar-xs' }}" alt="" />
+                        </div>
+                        <form id="comment_form" method="post" action="/network/feed/{{ cw.coursework_id }}/addcomment/" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="comment-text-area">
+                                {{comment_form}}
+                            </div>
+                            <div class="com-submit" id="com-submit">
+                                <button type="submit" class="btn btn-primary btn-sm" id="com-btn"> Comment</button>
+                        </div>
+                        </form>
+
+                    </div>
+                    <div class="comment-list">
+                        {% for c in cw.comments.all %}
+                            <div class="comment">
+                                <div class="comment-avatar">
+                                    <img src="{{ c.creator.profile_picture|thumbnail_url:'avatar-xs' }}" alt="" />
+                                </div>
+                                <div class="comment-creator">
+                                    <li><a href="/network/user/{{c.creator.user_id}}/">
+                                        <strong>{% if c.creator.is_lecturer %}
+                                                    {{c.creator.lecturer}}
+                                                {% else %}
+                                                    {{c.creator.student}}
+                                                {% endif %}
+                                        </strong></a></li>
+                                </div>
+                                <div class="comment-date">
+                                    <span style="color:#8899A6;font-weight: 200">  {{c.creation_date|naturaltime}}</span>
+                                </div>
+                                <div class="comment-content">
+                                    <p>{{c.content}}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div id="sidebar">
+        <div id="side-nav">
+            <div id="side-header">
+                <span style="font-size: 11px;font-weight: bold;line-height: 15px;color: #666666">COURSE LIST</span>
+            <hr style="margin-top: 10px; margin-bottom: 10px; width: 150px;margin-left: 0px">
+            </div>
+            <div id="course-list-cont">
+                <ul>
+                    <div class="course-list-obj">
+                        <li>All</li>
+                    </div>
+                    {% for c in course_list %}
+                    <div class="course-list-obj">
+                        <li>{{ c.code }}</li>
+                    </div>
+                    {% endfor %}
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

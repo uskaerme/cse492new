@@ -1,0 +1,28 @@
+{% extends 'network/base.html' %}
+
+{% load bootstrap %}
+
+{% block title %}Lecturer account{% endblock %}
+
+{% block body_block %}
+    <div class="lecturer-register-container">
+        <form id="form" method="post" action="/network/register/lecturer/" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{user_form|bootstrap}}
+            <label class="control-label  " for="p_pic">Profile picture</label><br/>
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                <span class="btn btn-default btn-file">
+                    <span class="fileinput-new">Select image</span>
+                    <span class="fileinput-exists">Change</span>
+                    <input type="file" name="p_pic" id="p_pic">
+                </span>
+                <span class="fileinput-filename"></span>
+                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+            </div>
+            {{lecturer_form|bootstrap}}
+            <div class="form-group">
+                <button type="submit" class="btn btn-sample btn-sm ">Sign up</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

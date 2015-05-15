@@ -1,0 +1,94 @@
+{% extends 'network/base2.html' %}
+{% load staticfiles %}
+{% load bootstrap %}
+{% load thumbnail %}
+
+{% block body_block %}
+
+    <div id="user-basic-info">
+
+        <div id="user-name">
+            {{ course.code }}
+        </div>
+        <div id="user-academic-rank">
+            {{ course.description }}
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <div id="user-university">
+            <span style="color: #cccccc;"><i class="fa fa-map-marker"></i></span> {{ course.university }} / {{ course.department }}
+        </div>
+        <br>
+        <div id="user-university">
+            <span style="color: #cccccc;"><i class="fa fa-map-marker"></i></span>Prerequisites:{% for p in course.rerequisites %}  {{ p.code }} {% endfor %}
+        </div>
+
+
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+
+        <div id="user-count">
+            <div id="stu-count">
+                <span style="font-size:27px;line-height: 24px;color:#4183c4;font-weight: bold;">{{ course.credits }}</span>
+                <br/>
+                <span style="font-size:14px;line-height: 20px;color:#777777;">Credits</span>
+            </div>
+
+            <div id="cor-count">
+                <span style="font-size:27px;line-height: 24px;color:#4183c4;font-weight: bold;">{{ section_count }}</span>
+                <br/>
+                <span style="font-size:14px;line-height: 20px;color:#777777;">Sections</span>
+            </div>
+        </div>
+
+
+    </div>
+    <div id="user-more-info">
+        <div class="academic-cont">
+            <div class="academic-top">
+                <div class="more-info-header">
+                    Course Info
+                </div>
+                <div class="more-info-btn">
+
+                </div>
+                <div class="pub-obj">
+                    <span style="font-size: 15px;line-height: 23px;color: #555555;"><p>
+                        {{ course.info }}
+                    </p></span>
+                </div>
+            </div>
+        </div>
+        <div class="teaching-cont">
+            <div class="teaching-top">
+                <div class="more-info-header">
+                    Grading
+                </div>
+                <div class="more-info-btn">
+
+                </div>
+                <div>
+                    <span style="font-size: 15px;line-height: 23px;color: #555555;"><p>
+                        {{ course.grading }}
+                    </p></span>
+                </div>
+
+            </div>
+        </div>
+        <div class="pub-cont">
+            <div class="pub-top">
+                <div class="more-info-header">
+                    Sections
+                </div>
+                <div class="more-info-btn">
+
+                </div>
+                {% for s in sections %}
+                <div class="pub-obj">
+                    Section {{ s.section_no }}
+                    Instructor: {{ s.lecturer_set.all }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

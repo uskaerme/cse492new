@@ -1,0 +1,186 @@
+body{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+div .main img {  -webkit-border-radius: 3px;  -moz-border-radius: 3px;  border-radius: 3px;  }
+
+
+#main-cont{
+    width: 950px;
+    margin: 0 auto;
+}
+#navbar {
+
+    position: fixed;
+    margin: auto 0px;
+    top: 0;
+    width: 100%;
+    min-width: 1000px;
+    height: 35px;
+    background-color: #2A3744;
+}
+#leftbar {
+    position: fixed;
+    top: 35px;
+    width: 125px;
+    min-width: 125px;
+    height: 100%;
+    background-color: white;
+}
+
+div .main{
+    margin-left: 125px;
+    margin-top: 35px;
+    width: 580px;
+    min-width: 580px;
+    background-color: #EFF0F1;
+    word-wrap: break-word;
+    height: 2000px;
+}
+
+#rightbar {
+    position: fixed;
+    margin-left: 720px;
+    top: 35px;
+    width: 220px;
+    min-width: 220px;
+    height: 100%;
+}
+
+
+
+
+div .course-list-obj{
+    margin-left: 7px;
+    padding: 3px;
+    font-size: 13px;
+    line-height: 19px;
+    font-weight: 500;
+    color: #666666
+}
+
+div .course-list-obj:hover{
+    border-right: 2px solid #03C9A9;
+    cursor: pointer;
+    color: black;
+}
+
+#course-list-cont ul{
+    margin: 0px;
+    padding: 0px;
+}
+
+.search-container{
+  width: 400px;
+  display: block;
+  margin: 0 auto;
+    padding: 4px;
+
+}
+
+input#search-bar{
+  margin: 0 auto;
+  width: 100%;
+  height: 20px;
+  padding: 0 20px;
+  font-size: 13px;
+  border: 1px solid #D0CFCE;
+  outline: none;
+    border-radius: 4px;
+ }
+input#search-bar:focus{
+    border: 1px solid #008ABF;
+    transition: 0.35s ease;
+    color: #008ABF;
+}
+input#search-bar::-webkit-input-placeholder {
+    transition: opacity 0.45s ease;
+    opacity: 0;
+}
+input#search-bar::-moz-placeholder {
+    transition: opacity 0.45s ease;
+    opacity: 0;
+}
+
+input#search-bar:-ms-input-placeholder{
+    transition: opacity 0.45s ease;
+  	opacity: 0;
+}
+
+
+.fa-search{
+  position: relative;
+  float: right;
+  top: -20px;
+  right: -35px;
+    color: black;
+}
+
+div .feedobj{
+    margin: 4px;
+    padding: 10px;
+    width: 550px;
+    background-color: white;
+    border: thin solid #E4E4E4;
+    word-wrap: break-word;
+    -webkit-box-shadow: 0 8px 6px -6px #E4E4E4;
+       -moz-box-shadow: 0 8px 6px -6px #E4E4E4;
+            box-shadow: 0 8px 6px -6px #E4E4E4;
+}
+
+div .feedobj li{  list-style-type: none;  }
+
+
+div .top-part {
+    width: 100%;
+    float:left;
+    white-space: nowrap;
+    padding: 0px;
+}
+
+div .inline-creator{
+    float: left;
+    margin-top: 5px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+div .inline-creator a{
+    text-decoration: none;
+}
+div .avatar{
+    float: left;
+}
+div .inline-tag {
+    margin-top: 5px;
+    font-size: 11px;
+    float: right;
+    background-color: #EFEFF3;
+    border-radius: 5px;
+    color: #808393;
+    font-weight: 500;
+    padding: 2px;
+}
+
+div .inline-date {
+    float: left;
+    height: 32px;
+    margin-top: 7px;
+    max-height: 32px;
+    margin-left: 10px;
+    font-size: 12px;
+    color:#8899a6;
+}
+
+div .file-area a{
+    text-decoration: none;
+}
+
+div .comments{  background-color: #F6F6F6;  border: #E2E2E2 solid thin;  border-radius: 3px; height: 100px;  }
+div .new-comment{width: 100%;  overflow: hidden;  white-space: nowrap; padding: 5px;}
+div .new-com-avatar{  display: inline-block; float: left }
+div .comment-text-area{margin-top: 2px; padding-left: 7px; display: inline-block;  }
+div .com-submit{  display: inline-block;  float: right}
+
+#comment-content{  width: 430px;  }
+#com-btn{font-weight: bold;height: 28px;border: 1px solid #6C7A89}
